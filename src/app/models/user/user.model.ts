@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { TUser
-    
- } from "./user.interface";
+import { TUser } from "./user.interface";
+import config from "../../config";
+import bcrypt from "bcrypt"; 
  const userSchema = new mongoose.Schema<TUser>({
     id: {
         type: String,
@@ -48,6 +48,22 @@ import { TUser
 }, {
     timestamps: true,
 });
+
+// make the hash password before save 
+userSchema.pre('save', async function(next){
+    const user = this;
+    user.password = await bcrypt.hash(
+        user.password, 
+        Number(config.bcrypt_salt_rounds)
+    )
+    next();
+});
+
+// send empty result after save 
+userSchema.post('save', function(doc, next) {
+    doc.password = '';
+    next();
+})
 
 const userModel = mongoose.model('User', userSchema);
 
