@@ -5,5 +5,6 @@ const router = Router();
 
 // TODO 
 router.post('/create-user', UserControllers.createStudent);
+router.post('/create-teacher', UserControllers.createTeacher);
 
 export const userRouts = router;
