@@ -1,4 +1,4 @@
-export interface Tuser {
+export interface TUser {
     id: string,
     password: string,
     needsPasswordChange: boolean,
