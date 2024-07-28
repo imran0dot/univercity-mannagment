@@ -40,13 +40,17 @@ const createTeacherIntoDB = async(password: string, teacherData: TTeacher) => {
     userData.id = '203010000004'
 
     const createdNewUser = await userModel.create(userData);
-
     if(Object.keys(createdNewUser).length){
         teacherData.id = createdNewUser.id;
         teacherData.user = createdNewUser._id;
-
-        const newStudent = await TeacherModel.create(teacherData);
-        return newStudent;
+        try{
+            const newTeacher = await TeacherModel.create(teacherData);
+            return newTeacher;
+        }
+        catch(err){
+            const deleteTeacher = await userModel.findOneAndDelete(createdNewUser._id);
+            throw new Error('Teacher is not created and user has been deleted!' + deleteTeacher);
+        }
     }
     
 };

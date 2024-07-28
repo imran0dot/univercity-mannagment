@@ -1,58 +1,58 @@
 import mongoose, { Types } from "mongoose";
 import { TTeacher } from "./teacher.interface";
 
-const teacherSchema = new mongoose.Schema<TTeacher>({
+const TeacherSchema = new mongoose.Schema<TTeacher>({
     id: {
       type: String,
-      required: true,
+      required: [true, 'Teacher ID is required'],
       unique: true,
     },
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.SchemaTypes.ObjectId,
       ref: 'User',
-      required: true,
+      required: [true, 'User reference is required'],
     },
     name: {
       type: {
-        firstName: { type: String, required: true },
-        lastName: { type: String, required: true },
+        firstName: { type: String, required: [true, 'First name is required'] },
+        lastName: { type: String, required: [true, 'Last name is required'] },
         middleName: { type: String },
       },
-      required: true,
+      required: [true, 'Teacher name is required'],
     },
     gender: {
       type: String,
-      enum: ['male', 'female', 'others'],
-      required: true,
+      enum: ['male' , 'female'],
+      required: [true, 'Gender is required'],
     },
     dateOfBirth: {
       type: String,
-      required: true,
+      required: [true, 'Date of birth is required'],
     },
     email: {
       type: String,
-      required: true,
+      required: [true, 'Email is required'],
       unique: true,
     },
     contactNo: {
-      type: Number,
-      required: true,
+      type: String,
+      required: [true, 'Contact number is required'],
     },
     emergencyContactNo: {
-      type: Number,
-      required: true,
+      type: String,
+      required: [true, 'Emergency contact number is required'],
     },
     presentAddress: {
       type: String,
-      required: true,
+      required: [true, 'Present address is required'],
     },
     permanentAddress: {
       type: String,
-      required: true,
+      required: [true, 'Permanent address is required'],
     },
-    profileImage: {
+    profileImg: {
       type: String,
-      required: true,
+      required: [true, 'Profile image is required'],
     },
     academicDepartment: {
       type: String,
@@ -72,7 +72,7 @@ const teacherSchema = new mongoose.Schema<TTeacher>({
         'Philosophy',
         'Accounting',
       ],
-      required: true,
+      required: [true, 'Academic department is required'],
     },
     academicFaculty: {
       type: String,
@@ -83,6 +83,10 @@ const teacherSchema = new mongoose.Schema<TTeacher>({
         'Faculty of Agriculture',
         'Faculty of Science',
       ],
-      required: true,
+      required: [true, 'Academic faculty is required'],
     },
   });
+
+
+const TeacherModel = mongoose.model<TTeacher>('Teacher', TeacherSchema);
+export default TeacherModel;
