@@ -3,6 +3,6 @@ export interface Tuser {
     password: string,
     needsPasswordChange: boolean,
     status: 'in-progress' | 'blocked',
-    role: 'admin' | 'student' | 'teacher' | 'comity',
+    role: 'admin' | 'student' | 'teacher' ,
     isDeleted: boolean,
 }
