@@ -1,8 +1,10 @@
 import config from "../../config";
+import { TStudent } from "../student/student.interface";
+import { Student } from "../student/student.model";
 import { TUser } from "./user.interface";
 import userModel from "./user.model";
 
-const createStudentIntoDB = async(password: string, studentData) => {
+const createStudentIntoDB = async(password: string, studentData: TStudent) => {
     // set student user
     const userData: Partial<TUser> = {};
 
@@ -12,15 +14,16 @@ const createStudentIntoDB = async(password: string, studentData) => {
     //set manually generated id
     userData.id = '203010000001'
 
-    const createdUser = await userModel.create(userData);
+    const createdNewUser = await userModel.create(userData);
 
-    if(Object.keys(createdUser).length){
-        studentData.id = createdUser.id;
-        studentData.user = createdUser._id;
+    if(Object.keys(createdNewUser).length){
+        studentData.id = createdNewUser.id;
+        studentData.user = createdNewUser._id;
+
+        const newStudent = await Student.create(studentData);
+        return newStudent;
     }
-    const createStudent = await userModel.create(userData);
-
-
+    
 };
 
 export const UserServices = {

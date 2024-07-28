@@ -9,7 +9,7 @@ const main = async () => {
             throw new Error('Error occurred because of Database Connection');
         }
         app.listen(config.port as string, () => {
-            console.log(`your server is running on this port http://localhost/${config.port as string}`)
+            console.log(`your server is running on this port http://localhost:${config.port as string}`)
         });
     }
     catch (err) {

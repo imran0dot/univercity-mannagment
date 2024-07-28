@@ -3,17 +3,17 @@ import { UserServices } from "./user.service";
 
 const createStudent = async (req: Request, res: Response) => {
     try{
-        const {password} = req.body;
-        const result = await UserServices.createStudentIntoDB()
+        const { password, student: studentData } = req.body;
+        const result = await UserServices.createStudentIntoDB(password, studentData)
 
         res.send({
-            error: true,
-            isSuccess: false,
-            message: '',
+            error: false,
+            isSuccess: true,
+            message: result,
         })
     }
     catch(err){
-        res.send({
+        res.status(404).send({
             error: true,
             isSuccess: false,
             message: err,
@@ -22,5 +22,5 @@ const createStudent = async (req: Request, res: Response) => {
 };
 
 export const UserControllers = {
-    createUser,
+    createStudent,
 }

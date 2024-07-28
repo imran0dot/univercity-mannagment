@@ -4,6 +4,6 @@ import { UserControllers } from "./user.controller";
 const router = Router();
 
 // TODO 
-router.post('/create-user', UserControllers.createUser);
+router.post('/create-user', UserControllers.createStudent);
 
 export const userRouts = router;
