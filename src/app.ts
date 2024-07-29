@@ -2,9 +2,9 @@ import express, {Request, Response} from 'express';
 import cors from 'cors';
 import { userRouts } from './app/models/user/user.route';
 import { StudentRoutes } from './app/models/student/student.rout';
-import { TeacherRouter } from './app/models/teacher/teacher.route';
 import sendResponse from './app/utils/sendResponse';
 import httpStatus from 'http-status';
+import { TeacherRoutes } from './app/models/teacher/teacher.route';
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 // application routs 
 app.use('/api/v1/students', StudentRoutes)
 app.use('/api/v1/users', userRouts)
-app.use('api/v1/teacher', TeacherRouter);
+app.use('/api/v1/teachers', TeacherRoutes);
 
 
 //not found route
