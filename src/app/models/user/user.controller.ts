@@ -1,7 +1,7 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { UserServices } from "./user.service";
 
-const createStudent = async (req: Request, res: Response) => {
+const createStudent = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { password, student: studentData } = req.body;
         const result = await UserServices.createStudentIntoDB(password, studentData)
@@ -12,15 +12,11 @@ const createStudent = async (req: Request, res: Response) => {
         })
     }
     catch (err) {
-        res.status(404).send({
-            error: true,
-            isSuccess: false,
-            message: err,
-        })
+        next(err);
     }
 };
 
-const createTeacher = async (req: Request, res: Response) => {
+const createTeacher = async (req: Request, res: Response, next: NextFunction) => {
     try{
         const { password, teacher: teacherData } = req.body;
         const result = await UserServices.createTeacherIntoDB(password, teacherData);
@@ -31,11 +27,7 @@ const createTeacher = async (req: Request, res: Response) => {
         })
     }
     catch (err) {
-        res.status(404).send({
-            error: true,
-            isSuccess: false,
-            message: err,
-        })
+        next(err)
     }
 }
 

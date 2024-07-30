@@ -1,4 +1,4 @@
-const default_try_catch = (callBack: () => void): void => {
+const default_try_catch = ( callBack: () => void ): any => {
     try {
         return callBack();
     } catch (error) {
