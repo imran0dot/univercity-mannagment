@@ -1,9 +1,7 @@
-import express, {NextFunction, Request, Response} from 'express';
+import express from 'express';
 import cors from 'cors';
 import { userRouts } from './app/models/user/user.route';
 import { StudentRoutes } from './app/models/student/student.rout';
-import sendResponse from './app/utils/sendResponse';
-import httpStatus from 'http-status';
 import { TeacherRoutes } from './app/models/teacher/teacher.route';
 import global_error_handler from './app/middlewares/global_error_handler';
 import not_found_handler from './app/middlewares/not_found_handler';
@@ -29,6 +27,4 @@ app.get('*', not_found_handler)
 
 // global error handler 
 app.use(global_error_handler)
-
-
 export default app;
