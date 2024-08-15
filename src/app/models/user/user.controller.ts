@@ -1,8 +1,10 @@
-import { NextFunction, Request, Response } from "express"
 import { UserServices } from "./user.service";
+import cathAsync from "../../utils/cathAsync";
 
-const createStudent = async (req: Request, res: Response, next: NextFunction) => {
-    try {
+
+
+const createStudent =  cathAsync(async ( req, res ) => {
+
         const { password, student: studentData } = req.body;
         const result = await UserServices.createStudentIntoDB(password, studentData)
         res.send({
@@ -10,14 +12,9 @@ const createStudent = async (req: Request, res: Response, next: NextFunction) =>
             isSuccess: true,
             message: result,
         })
-    }
-    catch (err) {
-        next(err);
-    }
-};
+});
 
-const createTeacher = async (req: Request, res: Response, next: NextFunction) => {
-    try{
+const createTeacher =  cathAsync(async ( req, res, next ) => {
         const { password, teacher: teacherData } = req.body;
         const result = await UserServices.createTeacherIntoDB(password, teacherData);
         res.send({
@@ -25,12 +22,8 @@ const createTeacher = async (req: Request, res: Response, next: NextFunction) =>
             isSuccess: true,
             message: result,
         })
-    }
-    catch (err) {
-        next(err)
-    }
 }
-
+);
 export const UserControllers = {
     createStudent,
     createTeacher

@@ -1,14 +1,12 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import { StudentServices } from './student.service';
+import cathAsync from '../../utils/cathAsync';
 
-const getSingleStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
+
+
+const getSingleStudent = cathAsync(async ( req, res, next ) => {
     const { studentId } = req.params;
     const result = await StudentServices.getSingleStudentFromDB(studentId);
 
@@ -18,17 +16,9 @@ const getSingleStudent = async (
       message: 'Student is retrieved successfully',
       data: result,
     });
-  } catch (err) {
-    next(err);
-  }
-};
+});
 
-const getAllStudents = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
+const getAllStudents =  cathAsync(async ( req, res, next ) => {
     const result = await StudentServices.getAllStudentsFromDB();
 
     sendResponse(res, {
@@ -36,18 +26,10 @@ const getAllStudents = async (
       success: true,
       message: 'Student are retrieved succesfully',
       data: result,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+    })
+});
 
-const deleteStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
+const deleteStudent =  cathAsync(async ( req, res, next ) => {
     const { studentId } = req.params;
     const result = await StudentServices.deleteStudentFromDB(studentId);
 
@@ -56,11 +38,8 @@ const deleteStudent = async (
       success: true,
       message: 'Student is deleted succesfully',
       data: result,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+    })
+});
 
 export const StudentControllers = {
   getAllStudents,
