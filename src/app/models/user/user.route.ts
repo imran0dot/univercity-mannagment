@@ -1,6 +1,5 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { Router } from "express";
 import { UserControllers } from "./user.controller";
-import { AnyZodObject } from "zod";
 import { studentValidationSchema } from "../student/student.validation";
 import data_validation_schema from "../../middlewares/data_validation";
 import { teacherValidationSchema } from "../teacher/teacher.validation";

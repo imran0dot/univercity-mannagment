@@ -1,10 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import { userRouts } from './app/models/user/user.route';
-import { StudentRoutes } from './app/models/student/student.rout';
-import { TeacherRoutes } from './app/models/teacher/teacher.route';
 import global_error_handler from './app/middlewares/global_error_handler';
 import not_found_handler from './app/middlewares/not_found_handler';
+import { router } from './router';
 
 const app = express();
 
@@ -17,9 +15,7 @@ app.get('/', (req, res) => {
 })
 
 // application routs 
-app.use('/api/v1/students', StudentRoutes)
-app.use('/api/v1/users', userRouts)
-app.use('/api/v1/teachers', TeacherRoutes);
+app.use('/api/v1/', router);
 
 
 //not found route
