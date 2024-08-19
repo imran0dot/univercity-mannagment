@@ -5,24 +5,24 @@ import { TTeacher } from "../teacher/teacher.interface";
 import TeacherModel from "../teacher/teacher.model";
 import { TUser } from "./user.interface";
 import userModel from "./user.model";
+import { generateStudentId } from "./user.utils";
 
-const createStudentIntoDB = async(password: string, studentData: TStudent) => {
+const createStudentIntoDB = async(password: string, payload: TStudent) => {
     // set student user
     const userData: Partial<TUser> = {};
-
     userData.password = password || (config.default_pass as string);
     userData.role = 'student',
 
-    //set manually generated id
-    userData.id = '203010000004'
+    //set generated id
+    userData.id = await generateStudentId(payload.academicSemester);
 
     const createdNewUser = await userModel.create(userData);
 
     if(Object.keys(createdNewUser).length){
-        studentData.id = createdNewUser.id;
-        studentData.user = createdNewUser._id;
+        payload.id = createdNewUser.id;
+        payload.user = createdNewUser._id;
 
-        const newStudent = await Student.create(studentData);
+        const newStudent = await Student.create(payload);
         return newStudent;
     }
     

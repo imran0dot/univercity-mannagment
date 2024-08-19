@@ -43,7 +43,8 @@ export const studentValidationSchema = z.object({
       permanentAddress: z.string(),
       guardian: guardianSchema,
       localGuardian: localGuardianSchema,
-      profileImg: z.string()
+      profileImg: z.string(),
+      academicSemester: z.string()
     })
   })
 });

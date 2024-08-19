@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { TUser } from "./user.interface";
 import config from "../../config";
 import bcrypt from "bcrypt"; 
+import academicSemesterModel from "../academicSemester/academicSemester.model";
 
  const userSchema = new mongoose.Schema<TUser>({
     id: {
@@ -59,6 +60,7 @@ userSchema.pre('save', async function(next){
     )
     next();
 });
+
 
 // send empty result after save 
 userSchema.post('save', function(doc, next) {

@@ -12,7 +12,7 @@ const createAcademicSemester = cathAsync(async (req, res) => {
         message: 'Academic semester is created successfully',
         data: result
     })
-});
+});                                                                                                                                                  
 
 const getAllAcademicSemester = cathAsync(async (req, res) => {
     const result = await academicSemesterServices.getAllAcademicSemesterFromDb();
@@ -43,11 +43,11 @@ const getSingleAcademicSemester = cathAsync(async (req, res) => {
 const updateSingleSemester = cathAsync(async (req, res) => {
     const { id } = req.params;
     const result = await academicSemesterServices.updateSingleAcademicSemesterFromDb(id, req.body);
-    
+
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Academic Semester get successfully',
+        message: 'Academic Semester update successfully',
         data: result
     })
 })

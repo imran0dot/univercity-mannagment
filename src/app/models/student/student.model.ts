@@ -6,6 +6,7 @@ import {
   TStudent,
   TUserName,
 } from './student.interface';
+import academicSemesterModel from '../academicSemester/academicSemester.model';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -133,6 +134,10 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: [true, 'Local guardian information is required'],
     },
     profileImg: { type: String },
+    academicSemester: {
+      type: String,
+      require: [true, 'Academic Semester is required']
+    },
     isDeleted: {
       type: Boolean,
       default: false,
@@ -164,6 +169,18 @@ studentSchema.pre('findOne', function (next) {
 studentSchema.pre('aggregate', function (next) {
   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
   next();
+});
+
+studentSchema.pre<TStudent>('save', async function(next) {
+  try {
+    const findAcademicSemester = await academicSemesterModel.findById(this.academicSemester);
+    if (!findAcademicSemester) {
+      throw new Error('Academic Semester does not exist.');
+    }
+    next();
+  } catch (error) {
+    throw new Error('Academic Semester does not exist.');
+  }
 });
 
 //creating a custom static method
